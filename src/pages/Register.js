@@ -56,8 +56,8 @@ const Register = () => {
   return (
     <main className='main'>
       <form className='form' onSubmit={onSubmit}>
-        <h2>Travel Application</h2>
-        <h3>{values.isMember ? 'Login' : 'Register'}</h3>
+        <h2>Ticketing System</h2>
+        <h3>{values.isMember ? 'Paystation Login' : 'Paystation Register'}</h3>
         {!values.isMember && (
           <FormRow
             type='text'
