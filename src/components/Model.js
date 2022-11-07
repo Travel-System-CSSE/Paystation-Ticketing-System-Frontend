@@ -47,7 +47,7 @@ const Model = ({ modelShow }) => {
     console.log(newCredit)
 
     const addCredit = async () => {
-      await customFetch.post('/credit/addCredit', newCredit)
+      await customFetch.post('/credit/', newCredit)
     }
 
     swal({
