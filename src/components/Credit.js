@@ -19,6 +19,7 @@ const Credit = ({ showCredit }) => {
       return
     }
 
+    // view credit balance get request
     const viewCredit = async () => {
       try {
         const res = await customFetch.get(`/credit/getBal/${idNumber}`)

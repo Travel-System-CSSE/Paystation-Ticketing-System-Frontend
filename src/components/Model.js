@@ -34,6 +34,7 @@ const Model = ({ modelShow }) => {
 
     newCredit.amount = parseInt(newCredit.amount)
 
+    // add credit post request
     const addCredit = async () => {
       try {
         await customFetch.post('/credit/', newCredit)
