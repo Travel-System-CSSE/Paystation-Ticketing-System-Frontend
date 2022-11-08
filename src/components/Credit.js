@@ -1,56 +1,113 @@
-import React, { useEffect, useState } from "react";
-import { FiX } from "react-icons/fi";
-import { useSelector } from "react-redux";
-import customFetch from "../util/axios";
+import React, { useEffect, useState } from 'react'
+import { FiX } from 'react-icons/fi'
+import { useSelector } from 'react-redux'
+import customFetch from '../util/axios'
+import { toast } from 'react-toastify'
 
 const Credit = ({ showCredit }) => {
-  const { user } = useSelector((store) => store.user);
-  const [credit, setCredit] = useState();
-  const [loading, setLoading] = useState(false);
-  const fetchData = async () => {
-    setLoading(true);
-    const res = customFetch.get(`credit/${user.userId}`);
+  const { user } = useSelector((store) => store.user)
+  const [idNumber, setIdNumber] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [data, setData] = useState(null)
+  const [viewBalance, setViewBalance] = useState(false)
 
-    const { documents } = res.data;
-    if (!(documents.length === 0)) {
-      const sum = documents.map((el) => el.amount);
-      let totalCredit = sum.reduce(function (previousValue, currentValue) {
-        return previousValue + currentValue;
-      });
-      setLoading(false);
-      setCredit(totalCredit);
-      return;
+  const onSubmit = (e) => {
+    e.preventDefault()
+
+    if (idNumber === '') {
+      alert('Please Fill Out the Field')
+      return
     }
 
-    setCredit(0);
-    setLoading(false);
-  };
-  useEffect(() => {
-    fetchData();
-  }, []);
+    const viewCredit = async () => {
+      try {
+        const res = await customFetch.get(`/credit/getBal/${idNumber}`)
+        setData(res.data)
+        setViewBalance(true)
+      } catch (error) {
+        toast.error(error.response.data.msg)
+      }
+    }
+
+    viewCredit()
+  }
 
   return (
-    <section className="model">
-      <form className="form">
-        <FiX className="close-icon" onClick={() => showCredit()} />
-        <h2>Available Credit</h2>
-        <div className="form-row">
-          <label htmlFor="credit" className="form-label amount">
-            credit amount
-          </label>
-        </div>
-        <div className="form-row">
-          {loading ? (
-            "Loading..."
-          ) : (
-            <label htmlFor="credit" className="form-label amount">
-              {credit === 0 ? "No Credit Available" : `$ ${credit}`}
-            </label>
-          )}
-        </div>
-      </form>
-    </section>
-  );
-};
+    <section className='model'>
+      {viewBalance ? (
+        <form className='form'>
+          <FiX className='close-icon' onClick={() => showCredit()} />
+          <h2>Available Credit</h2>
 
-export default Credit;
+          <div className='form-row'>
+            <label
+              htmlFor='name'
+              className='form-label amount'
+              style={{ fontSize: '1.18rem' }}
+            >
+              Name &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;:{' '}
+              {data?.user?.name}
+            </label>
+            <label
+              htmlFor='idNumber'
+              className='form-label amount'
+              style={{ fontSize: '1.18rem' }}
+            >
+              ID number : {data?.user?.idNumber}
+            </label>
+            {/* <label htmlFor='passengerType' className='form-label amount'>
+              Passenger Type : {data?.user?.role}
+            </label> */}
+          </div>
+          {/* <div className='form-row'>
+            <label htmlFor='idNumber' className='form-label amount'>
+              ID number : {data?.user?.idNumber}
+            </label>
+          </div>
+          <div className='form-row'>
+            <label htmlFor='passengerType' className='form-label amount'>
+              Passenger Type : {data?.user?.role}
+            </label>
+          </div> */}
+
+          <div className='form-row'>
+            <label htmlFor='credit' className='form-label amount'>
+              credit amount :{' '}
+              {data?.balance === 0
+                ? 'No Credit Available'
+                : `$ ${data?.balance}`}
+            </label>
+          </div>
+          {/* <div className='form-row'>
+            <label htmlFor='credit' className='form-label amount'>
+              {data?.balance === 0
+                ? 'No Credit Available'
+                : `$ ${data?.balance}`}
+            </label>
+          </div> */}
+        </form>
+      ) : (
+        <form className='form' onSubmit={onSubmit}>
+          <FiX className='close-icon' onClick={() => showCredit()} />
+          <h2>Available Credit</h2>
+          <div className='form-row'>
+            <label htmlFor='idNumber' className='form-label'>
+              ID Number
+            </label>
+            <input
+              type='text'
+              name='idNumber'
+              className='form-input'
+              placeholder='ID Number'
+              value={idNumber}
+              onChange={(e) => setIdNumber(e.target.value)}
+            />
+          </div>
+          <button className='btn btn-full'> View Credit Balance</button>
+        </form>
+      )}
+    </section>
+  )
+}
+
+export default Credit
