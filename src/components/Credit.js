@@ -55,20 +55,7 @@ const Credit = ({ showCredit }) => {
             >
               ID number : {data?.user?.idNumber}
             </label>
-            {/* <label htmlFor='passengerType' className='form-label amount'>
-              Passenger Type : {data?.user?.role}
-            </label> */}
           </div>
-          {/* <div className='form-row'>
-            <label htmlFor='idNumber' className='form-label amount'>
-              ID number : {data?.user?.idNumber}
-            </label>
-          </div>
-          <div className='form-row'>
-            <label htmlFor='passengerType' className='form-label amount'>
-              Passenger Type : {data?.user?.role}
-            </label>
-          </div> */}
 
           <div className='form-row'>
             <label htmlFor='credit' className='form-label amount'>
@@ -78,13 +65,6 @@ const Credit = ({ showCredit }) => {
                 : `$ ${data?.balance}`}
             </label>
           </div>
-          {/* <div className='form-row'>
-            <label htmlFor='credit' className='form-label amount'>
-              {data?.balance === 0
-                ? 'No Credit Available'
-                : `$ ${data?.balance}`}
-            </label>
-          </div> */}
         </form>
       ) : (
         <form className='form' onSubmit={onSubmit}>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { FiX } from 'react-icons/fi'
-// import StripeCheckout from "react-stripe-checkout";
 import { useSelector } from 'react-redux'
 import customFetch from '../util/axios'
 import { toast } from 'react-toastify'
@@ -10,16 +9,7 @@ const Model = ({ modelShow }) => {
   const { user } = useSelector((store) => store.user)
   const [credit, setCredit] = useState({ idNumber: '', amount: '' })
 
-  // const makePayment = async (token) => {
-  //   const data = {
-  //     amount: values,
-  //     userId: user.userId,
-  //   }
-  //   await customFetch.post('/credit/', data)
-  // }
-
   const modelClose = () => {
-    // console.log(process.env.STRIPE_PK_KEY);
     modelShow()
   }
 
@@ -70,7 +60,6 @@ const Model = ({ modelShow }) => {
     })
 
     modelShow()
-    // await customFetch.post('/credit/', credit)
   }
 
   return (
@@ -105,14 +94,6 @@ const Model = ({ modelShow }) => {
           />
         </div>
         <button className='btn btn-full'> Pay</button>
-        {/* <StripeCheckout
-          token={makePayment}
-          name='Travel Application'
-          // stripeKey={process.env.REACT_APP_STRIPE_PK_KEY}
-          currency='USD'
-          amount={values * 100}
-          opened={modelClose}
-        /> */}
       </form>
     </section>
   )
