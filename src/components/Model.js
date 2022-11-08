@@ -44,10 +44,17 @@ const Model = ({ modelShow }) => {
 
     newCredit.amount = parseInt(newCredit.amount)
 
-    console.log(newCredit)
-
     const addCredit = async () => {
-      await customFetch.post('/credit/', newCredit)
+      try {
+        await customFetch.post('/credit/', newCredit)
+        swal(
+          'Credit Added!',
+          `${newCredit.amount} credit added to account with ID: ${newCredit.idNumber}`,
+          'success'
+        )
+      } catch (error) {
+        toast.error(error.response.data.msg)
+      }
     }
 
     swal({
@@ -59,11 +66,6 @@ const Model = ({ modelShow }) => {
     }).then((willAdd) => {
       if (willAdd) {
         addCredit()
-        swal(
-          'Credit Added!',
-          `${newCredit.amount} credit added to account with ID: ${newCredit.idNumber}`,
-          'success'
-        )
       }
     })
 
