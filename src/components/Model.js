@@ -94,7 +94,7 @@ const Model = ({ modelShow }) => {
             onChange={handleChange}
           />
         </div>
-        <button className='btn btn-full'> Pay</button>
+        <button className='btn btn-full'> Add Credit</button>
       </form>
     </section>
   )

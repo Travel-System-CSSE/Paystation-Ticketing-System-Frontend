@@ -44,7 +44,7 @@ const Credit = ({ showCredit }) => {
             <label
               htmlFor='name'
               className='form-label amount'
-              style={{ fontSize: '1.18rem' }}
+              style={{ fontSize: '1.17rem' }}
             >
               Name &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;:{' '}
               {data?.user?.name}
@@ -52,7 +52,7 @@ const Credit = ({ showCredit }) => {
             <label
               htmlFor='idNumber'
               className='form-label amount'
-              style={{ fontSize: '1.18rem' }}
+              style={{ fontSize: '1.17rem' }}
             >
               ID number : {data?.user?.idNumber}
             </label>
@@ -60,10 +60,7 @@ const Credit = ({ showCredit }) => {
 
           <div className='form-row'>
             <label htmlFor='credit' className='form-label amount'>
-              credit amount :{' '}
-              {data?.balance === 0
-                ? 'No Credit Available'
-                : `$ ${data?.balance}`}
+              credit amount : {`$ ${data?.balance}`}
             </label>
           </div>
         </form>
